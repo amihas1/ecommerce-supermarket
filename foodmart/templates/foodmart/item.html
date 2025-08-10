@@ -1,6 +1,4 @@
-
 {% extends "foodmart/base.html" %}
-
 
 
 {% block content %}
@@ -8,7 +6,8 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-4">
-            <img style="padding: 10px; height:100%; width:100%; object-fit: cover;" class="card-img-top" src="{{item.image.url}}" al />
+            <img style="padding: 10px; height:100%; width:100%; object-fit: cover;" class="card-img-top"
+                 src="{{item.image.url}}" al/>
         </div>
         <div class="col pt-5">
             <h2>{{ item.name }}</h2>
@@ -17,8 +16,9 @@
 
             <form method="post">
                 {% csrf_token %}
-                <input type="hidden" name="id_of_item" value="{{ item.id }}" />
-                <button type="submit" name="action" value="put" class="btn btn-success mt-5">Add to Cart <span style="margin-left: 3px"class="badge bg-light text-dark">{{item.num_in_cart}}</span></button>
+                <input type="hidden" name="id_of_item" value="{{ item.id }}"/>
+                <button type="submit" name="action" value="put" class="btn btn-success mt-5">Add to Cart <span
+                        style="margin-left: 3px" class="badge bg-light text-dark">{{item.num_in_cart}}</span></button>
             </form>
         </div>
     </div>
