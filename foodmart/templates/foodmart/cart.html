@@ -1,0 +1,56 @@
+
+{% extends "foodmart/base.html" %}
+
+
+
+{% block content %}
+<style>
+.w-60 {
+  width: 100% !important;
+}
+
+
+@media (min-width: 768px) { /* Bootstrap's md breakpoint */
+  .w-60 {
+    width: 60% !important;
+  }
+}
+
+</style>
+
+{% if num_instances != 0 %}
+    <div class="container w-60">
+    {% for x in items %}
+    <form method="post">
+            {% csrf_token %}
+        <input type="hidden" name="id_of_item" value="{{ x.id }}" >
+        <div class="row mt-3 pb-4 border-bottom border-1">
+            <div class="col-3 col-md-2"><img style="" class="img-thumbnail img-fluid" src="{{x.item.image.url}}"/></div>
+            <div class="col h4 align-self-center">{{x.item.name}}</div>
+         <!-- <div class="col align-self-center text-center"><button type="submit" name="action" value="delete" class="btn btn-md btn-danger rounded-circle">X</button>
+            </div> -->
+
+
+            <div class="col align-self-center text-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="submit" name="action" value="decrement" class="btn btn-success">-</button>
+                    <button type="button" class="btn btn-light disabled">{{x.quantity}}</button>
+                    <button type="submit" name="action" value="increment" class="btn btn-success">+</button>
+                </div>
+                <button type="submit" name="action" value="delete" class="btn btn-link text-dark">Remove</button>
+            </div>
+
+            <div class="col-2 align-self-center text-end">${{x.cost}}</div>
+        </div>
+    </form>
+    {% endfor %}
+        <div class="row mt-3"><div class="col text-end fw-bold"><span class="fw-light" style="margin-right: 40px;">Subtotal:</span> ${{total_cost}}</div></div>
+        <div class="row mt-3"><div class="col text-end"><button class="btn btn-success mt-3">Checkout</button></div></div>
+    </div>
+{% else %}
+<div class="container"><div class="row mt-5 justify-content-center">Your shopping cart is empty.</div></div>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+
+{% extends "foodmart/base.html" %}
+
+{% block head %}
+<style>
+.card{
+transition: all 0.3s
+}
+.card:hover{
+transform: scale(1.05);
+}
+
+.addbutton{
+height: 50px;
+width: 50px;
+font-size: 20px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        {% for i in items %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <div class="card mt-3 shadow">
+                <a href="{% url 'item' i.id %}" ><img style="padding: 10px; height:100%; width:100%; object-fit: cover;" class="card-img-top" src="{{i.image.url}}" alt="Card image"></a>
+                <div class="card-body">
+                    <h4 style=" line-height: 1.2em;     /* or your card's line-height */
+  height: 2.4em;          /* 2 lines x line-height */
+  overflow: hidden;" class="card-title">{{i.name}}</h4>
+                    <div class="row">
+                        <div class="col-9">
+                            <p class="align-middle">${{ i.price }} each</p>
+                        </div>
+                        <div class="col-3">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id_of_item" value="{{ i.id }}" >
+                                    {% if i.in_cart%}
+                                    <button type="submit" name="action" value="put" class="addbutton float-end btn btn-md btn-success rounded-circle">
+                                        {{i.num_in_cart}}</button>
+                                    {% else %}
+                                     <button type="submit" name="action" value="put" class="addbutton float-end btn btn-md btn-outline-success rounded-circle">+</button>
+                                    {% endif %}
+                                </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
